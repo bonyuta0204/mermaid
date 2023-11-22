@@ -60,6 +60,7 @@ export const labelHelper = async (parent, node, _classes, isNode) => {
 
     // if there are images, need to wait for them to load before getting the bounding box
     const images = div.getElementsByTagName('img');
+    console.log('images', images);
     if (images) {
       const noImgText = labelText.replace(/<img[^>]*>/g, '').trim() === '';
 
@@ -80,7 +81,9 @@ export const labelHelper = async (parent, node, _classes, isNode) => {
                     ? getConfig().fontSize
                     : window.getComputedStyle(document.body).fontSize;
                   const enlargingFactor = 5;
-                  img.style.width = parseInt(bodyFontSize, 10) * enlargingFactor + 'px';
+                  const width = parseInt(bodyFontSize, 10) * enlargingFactor + 'px';
+                  img.style.minWidth = width;
+                  img.style.maxWidth = width;
                 } else {
                   img.style.width = '100%';
                 }
